@@ -10,4 +10,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bunny.Net.TechTest.Core\Bunny.Net.TechTest.Core.csproj" />
+  </ItemGroup>
+
 </Project>
