@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bunny.Net.TechTest.Api", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bunny.Net.TechTest.Core", "Bunny.Net.TechTest.Core\Bunny.Net.TechTest.Core.csproj", "{34A65144-5893-407E-8E16-F46819BCB5CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bunny.Net.TechTest.Models", "Bunny.Net.TechTest.Models\Bunny.Net.TechTest.Models.csproj", "{90AB6B82-9F1F-4299-80FE-8BBE2679F89D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{34A65144-5893-407E-8E16-F46819BCB5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A65144-5893-407E-8E16-F46819BCB5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A65144-5893-407E-8E16-F46819BCB5CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90AB6B82-9F1F-4299-80FE-8BBE2679F89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AB6B82-9F1F-4299-80FE-8BBE2679F89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AB6B82-9F1F-4299-80FE-8BBE2679F89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90AB6B82-9F1F-4299-80FE-8BBE2679F89D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

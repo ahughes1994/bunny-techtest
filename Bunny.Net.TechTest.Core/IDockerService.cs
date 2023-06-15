@@ -1,8 +1,10 @@
-﻿namespace Bunny.Net.TechTest.Core
+﻿using Bunny.Net.TechTest.Models;
+
+namespace Bunny.Net.TechTest.Core
 {
 	public interface IDockerService
 	{
-		Task Create(string image);
+		Task<string> Create(string image, PortExposureBinding ports);
 
 		Task Start(string containerId);
 

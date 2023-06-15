@@ -1,10 +1,12 @@
 ﻿using Bunny.Net.TechTest.Core;
-using Microsoft.AspNetCore.Http;
+using Bunny.Net.TechTest.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Bunny.Net.TechTest.Api.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class ContainersController : ControllerBase
 	{
@@ -17,56 +19,74 @@ namespace Bunny.Net.TechTest.Api.Controllers
 			this.dockerService = dockerService;
 		}
 
-		public IActionResult Create()
+		[HttpPost]
+		public async Task<IActionResult> Create([FromQuery] string image, [FromBody] PortExposureBinding bindings)
 		{
+			logger.LogInformation($"/api/containers/create - image:{image} - bindings:{JsonConvert.SerializeObject(bindings)}");
+
+			string containerId = string.Empty;
+
 			try
 			{
-
+				containerId = await dockerService.Create(image, bindings);
 			}
 			catch (Exception ex)
 			{
+				logger.LogError(ex, ex.Message);
+				return Problem(ex.Message);
+			}
+
+			return Ok(containerId);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Start([FromQuery] string containerId)
+		{
+			logger.LogInformation($"/api/containers/start - containerId:{containerId}");
+
+			try
+			{
+				await dockerService.Start(containerId);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex, ex.Message);
 				return Problem(ex.Message);
 			}
 
 			return Ok();
 		}
 
-		public IActionResult Start()
+		[HttpGet]
+		public async Task<IActionResult> Stop([FromQuery] string containerId)
 		{
+			logger.LogInformation($"/api/containers/stop - containerId:{containerId}");
+
 			try
 			{
-
+				await dockerService.Stop(containerId);
 			}
 			catch (Exception ex)
 			{
+				logger.LogError(ex, ex.Message);
 				return Problem(ex.Message);
 			}
 
 			return Ok();
 		}
 
-		public IActionResult Stop()
+		[HttpGet]
+		public async Task<IActionResult> Delete([FromQuery] string containerId)
 		{
+			logger.LogInformation($"/api/containers/delete - containerId:{containerId}");
+
 			try
 			{
-
+				await dockerService.Delete(containerId);
 			}
 			catch (Exception ex)
 			{
-				return Problem(ex.Message);
-			}
-
-			return Ok();
-		}
-
-		public IActionResult Delete()
-		{
-			try
-			{
-
-			}
-			catch (Exception ex)
-			{
+				logger.LogError(ex, ex.Message);
 				return Problem(ex.Message);
 			}
 
