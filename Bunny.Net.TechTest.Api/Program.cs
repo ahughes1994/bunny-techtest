@@ -3,6 +3,7 @@ using Bunny.Net.TechTest.Core;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IContainerRegistry, ContainerRegistry>();
 builder.Services.AddTransient<IDockerService, DockerService>();
 
 builder.Services.AddControllers();

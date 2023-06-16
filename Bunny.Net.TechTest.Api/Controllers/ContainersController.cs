@@ -12,11 +12,14 @@ namespace Bunny.Net.TechTest.Api.Controllers
 	{
 		private readonly ILogger<ContainersController> logger;
 		private readonly IDockerService dockerService;
+		private readonly IContainerRegistry containerRegistry;
 
-		public ContainersController(ILogger<ContainersController> logger, IDockerService dockerService)
+		public ContainersController(ILogger<ContainersController> logger, IDockerService dockerService,
+			IContainerRegistry containerRegistry)
         {
 			this.logger = logger;
 			this.dockerService = dockerService;
+			this.containerRegistry = containerRegistry;
 		}
 
 		[HttpPost]
@@ -29,6 +32,7 @@ namespace Bunny.Net.TechTest.Api.Controllers
 			try
 			{
 				containerId = await dockerService.Create(image, bindings);
+				containerRegistry.Registry.Add(containerId, image);
 			}
 			catch (Exception ex)
 			{
@@ -83,6 +87,7 @@ namespace Bunny.Net.TechTest.Api.Controllers
 			try
 			{
 				await dockerService.Delete(containerId);
+				containerRegistry.Registry.Remove(containerId);
 			}
 			catch (Exception ex)
 			{
@@ -91,6 +96,12 @@ namespace Bunny.Net.TechTest.Api.Controllers
 			}
 
 			return Ok();
+		}
+
+		[HttpGet]
+		public IActionResult GetRegistry()
+		{
+			return Ok(containerRegistry.Registry);
 		}
     }
 }
